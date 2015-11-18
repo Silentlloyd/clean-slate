@@ -1,2 +1,8 @@
 # clean-slate
-This is a clean template ready to clone and vagrant up!
+
+1. clone repo and rename some stuff
+  a. replace [your-theme] with your theme name in:
+                                                  * gulpfile.js
+                                                  * .bowerrc
+
+  
