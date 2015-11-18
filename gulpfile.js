@@ -5,8 +5,8 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     livereload = require('gulp-livereload'),
     autoprefixer = require('gulp-autoprefixer'),
-    lessSource = './wp-content/themes/bitwise/static/less/bitwise.less',
-    allLessSource = './wp-content/themes/bitwise/static/less/*.less';
+    lessSource = './wp-content/themes/[your-theme]/static/less/[your-theme].less',
+    allLessSource = './wp-content/themes/[your-theme]/static/less/*.less';
 
  
 gulp.task('less', function () {
@@ -17,7 +17,7 @@ gulp.task('less', function () {
         browsers: ['last 10 versions'],
         cascade: false
     }))
-    .pipe(gulp.dest('./wp-content/themes/bitwise/static/css'))
+    .pipe(gulp.dest('./wp-content/themes/[your-theme]/static/css'))
     .pipe(notify('you just got gulped, son!'));
 
   
