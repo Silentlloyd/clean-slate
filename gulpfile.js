@@ -1,19 +1,36 @@
 var gulp = require('gulp'),
-	watch = require('gulp-watch'),
-	less = require('gulp-less'),
-	plumber = require('gulp-plumber'),
-	notify = require('gulp-notify');
+    watch = require('gulp-watch'),
+    less = require('gulp-less'),
+    plumber = require('gulp-plumber'),
+    notify = require('gulp-notify'),
+    livereload = require('gulp-livereload'),
+    autoprefixer = require('gulp-autoprefixer'),
+    lessSource = './wp-content/themes/bitwise/static/less/bitwise.less',
+    allLessSource = './wp-content/themes/bitwise/static/less/*.less';
 
+ 
+gulp.task('less', function () {
+  gulp.src(lessSource)
+    .pipe(plumber())
+    .pipe(less())
+    .pipe(autoprefixer({
+        browsers: ['last 10 versions'],
+        cascade: false
+    }))
+    .pipe(gulp.dest('./wp-content/themes/bitwise/static/css'))
+    .pipe(notify('you just got gulped, son!'));
 
-gulp.task('default', function() {
-	watch('./wp-content/themes/bitwise/static/less/*.less', function() {
-		console.log('recompiling less');
-		return gulp.src('./wp-content/themes/bitwise/static/less/bitwise.less')
-			.pipe(plumber())
-			.pipe(less())
-
-			.pipe(gulp.dest('./wp-content/themes/bitwise/static/css'))
-			.pipe(notify("you just got gulped, son"));
-	});
-
+  
 });
+
+gulp.task('watch', function () {
+    gulp.watch(allLessSource, function (event) {
+        return gulp.src(event.path)
+            .pipe(livereload());
+    });
+    livereload.listen()
+  
+    gulp.watch(allLessSource, ['less']);      
+});
+
+gulp.task('default', ['less', 'watch']);
